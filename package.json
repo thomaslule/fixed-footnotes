@@ -1,0 +1,19 @@
+{
+  "name": "fixed-footnotes",
+  "version": "0.0.1",
+  "description": "Display footnotes dynamically at the bottom of the screen only when their references are visible in the viewport.",
+  "main": "src/fixed-footnotes.js",
+  "scripts": {
+    "start": "webpack --watch",
+    "build": "webpack -p"
+  },
+  "author": "Thomas Lulé <thomas@lule.fr>",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "empty-element": "^1.0.0",
+    "in-view": "^0.6.1"
+  }
+}
