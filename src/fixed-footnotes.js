@@ -39,11 +39,18 @@ FixedFootnotes.prototype.start = function() {
   this._fixedContainer = this._createFixedContainer();
 
   // The view will be refreshed on each scroll
-  this.options.w.addEventListener("scroll", function() {
-    self._refresh();
-  });
+  this._eventListener = this._refresh.bind(this);
+  this.options.w.addEventListener("scroll", this._eventListener);
   this._refresh();
 };
+
+/*
+ * Stop all the things we were doing and put back the DOM at its initial state.
+ */
+FixedFootnotes.prototype.stop = function() {
+  this._fixedContainer.parentNode.removeChild(this._fixedContainer);
+  this.options.w.removeEventListener("scroll", this._eventListener);
+}
 
 /*
  * Create the fixed container that will host the footnotes.
