@@ -3,9 +3,36 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <title>fixed-footnotes demo</title>
   <link rel="stylesheet" type="text/css" href="demo.css"></link>
+  <link rel="stylesheet" type="text/css" href="theme.css"></link>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js"></script>
 </head>
 <body>
   <h1>fixed-footnotes</h1>
+  <div id="code">
+    <ul id="buttons">
+      <li><button id="button-no-theme">No theme, no config</button></li>
+      <li><button id="button-theme">Themed</button></li>
+    </ul>
+    <div id="code-no-theme">
+      <pre><code class="javascript">fixedFootnotes();</code></pre>
+    </div>
+    <div id="code-theme">
+      <pre><code class="javascript">fixedFootnotes({
+  fixedContainerLocation: "#column",
+  fixedContainerId: "fixedContainer"
+});</code></pre>
+      <pre><code class="css">#fixedContainer {
+  max-width: 500px;
+  background-color: #E7B91B !important;
+  border-top-color: black !important;
+}
+
+#fixedContainer p {
+  margin-bottom: 0px;
+}</code></pre>
+    </div>
+  </div>
   <h2>Scroll this long article to see footnotes show and hide as you pass their references.</h2>
   <div id="column">
     <p>
@@ -76,6 +103,7 @@
     </section>
   </div>
   <script type="text/javascript" src="fixed-footnotes-0.0.1.min.js"></script>
-  <script type="text/javascript">fixedFootnotes();</script>
+  <!--<script type="text/javascript" src="../build/bundle.js"></script>-->
+  <script type="text/javascript" src="demo.js"></script>
 </body>
 </html>

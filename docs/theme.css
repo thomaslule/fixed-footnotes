@@ -1,0 +1,9 @@
+#fixedContainer {
+  max-width: 500px;
+  background-color: #ecc546 !important;
+  border-top-color: black !important;
+}
+
+#fixedContainer p {
+  margin-bottom: 0px;
+}

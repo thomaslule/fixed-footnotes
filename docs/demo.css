@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-color: #E7B91B;
+  background-color: #ecc546;
 }
 
 h1 {
@@ -33,11 +33,44 @@ p {
   text-justify: inter-word;
 }
 
+#notes p {
+  margin: 0;
+}
+
+a, a:visited, a:hover, a:active {
+  color: red;
+}
+
 #column {
   max-width: 500px;
   margin: 0 auto;
 }
 
-a, a:visited, a:hover, a:active {
-  color: red;
+#code {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 72px;
+}
+
+#buttons {
+  padding: 0;
+  text-align: center;
+}
+
+#buttons li {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+#buttons button {
+    background-color: #555555;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
 }
