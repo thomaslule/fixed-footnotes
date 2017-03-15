@@ -24,7 +24,7 @@ FixedFootnotes.prototype.defaultOptions = {
   fixedContainerId: "",
 
   // CSS to set to the fixed container.
-  fixedContainerCss: "position: fixed; bottom: 0; background-color: white; border-top: 1px solid grey; width: 100%;",
+  fixedContainerCss: "position: fixed; bottom: 0; background-color: white; border-top: 1px solid grey; width: 100%; padding: 5px;",
 
   // Window object.
   w: window
@@ -65,6 +65,11 @@ FixedFootnotes.prototype._refresh = function() {
   this._getReferences().forEach(function(reference) {
     self._displayIfVisible(reference);
   });
+  if (this._fixedContainer.childNodes.length == 0) {
+    this._fixedContainer.style.display = "none";
+  } else {
+    this._fixedContainer.style.display = "";
+  }
 };
 
 /*
