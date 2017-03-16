@@ -63,6 +63,8 @@ a, a:visited, a:hover, a:active {
 #buttons li {
   display: inline-block;
   margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 #buttons button {
