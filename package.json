@@ -10,6 +10,7 @@
   "author": "Thomas Lulé <thomas@lule.fr>",
   "license": "MIT",
   "devDependencies": {
+    "copy-webpack-plugin": "^4.0.1",
     "webpack": "^2.2.1"
   },
   "dependencies": {
