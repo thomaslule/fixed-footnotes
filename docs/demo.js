@@ -15,6 +15,10 @@ document.getElementById("button-theme").onclick = function() {
   ffn.stop();
   ffn = fixedFootnotes({
     fixedContainerLocation: "#column",
-    fixedContainerId: "fixedContainer"
+    fixedContainerId: "fixedContainer",
+    transformNote: function(note) {
+      note.id = "";
+      return note;
+    }
   });
 }

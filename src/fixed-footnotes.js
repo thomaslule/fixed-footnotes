@@ -33,6 +33,9 @@ FixedFootnotes.prototype.defaultOptions = {
   // CSS to set to the fixed container.
   fixedContainerCss: "position: fixed; bottom: 0; background-color: white; border-top: 1px solid grey; width: 100%; padding: 5px;",
 
+  // Override this if you want to modify your note before displaying it in the fixed container
+  transformNote: function(elem) { return elem; },
+
   // Window object.
   w: window
 };
@@ -98,7 +101,8 @@ FixedFootnotes.prototype._displayIfVisible = function(reference) {
  * Add a footnote to the fixed container.
  */
 FixedFootnotes.prototype._displayNote = function(note) {
-  this._fixedContainer.appendChild(note.cloneNode(true));
+  var newNote = this.options.transformNote(note.cloneNode(true));
+  this._fixedContainer.appendChild(newNote);
 };
 
 /*

@@ -21,7 +21,11 @@
     <div id="code-theme">
       <pre><code class="javascript">fixedFootnotes({
   fixedContainerLocation: "#column",
-  fixedContainerId: "fixedContainer"
+  fixedContainerId: "fixedContainer",
+  transformNote: function(note) {
+    note.id = "";
+    return note;
+  }
 });</code></pre>
       <pre><code class="css">#fixedContainer {
   max-width: 500px;
