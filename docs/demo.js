@@ -1,11 +1,14 @@
 hljs.initHighlightingOnLoad();
+
 document.getElementById("code-theme").style.display = "none";
+
 var ffn = fixedFootnotes();
 
 document.getElementById("button-no-theme").onclick = function() {
   document.getElementById("code-theme").style.display = "none";
   document.getElementById("code-no-theme").style.display = "";
   ffn.stop();
+  document.getElementById("ffn-theme").setAttribute("href", "fixed-footnotes-0.0.1.css");
   ffn = fixedFootnotes();
 }
 
@@ -13,9 +16,9 @@ document.getElementById("button-theme").onclick = function() {
   document.getElementById("code-theme").style.display = "";
   document.getElementById("code-no-theme").style.display = "none";
   ffn.stop();
+  document.getElementById("ffn-theme").setAttribute("href", "theme.css");
   ffn = fixedFootnotes({
     fixedContainerLocation: "#column",
-    fixedContainerId: "fixedContainer",
     transformNote: function(note) {
       note.id = "";
       return note;

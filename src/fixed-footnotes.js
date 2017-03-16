@@ -30,8 +30,11 @@ FixedFootnotes.prototype.defaultOptions = {
   // Id to set to the fixed container.
   fixedContainerId: "",
 
-  // CSS to set to the fixed container.
-  fixedContainerCss: "position: fixed; bottom: 0; background-color: white; border-top: 1px solid grey; width: 100%; padding: 5px;",
+  // Class to set to the fixed container.
+  fixedContainerClass: "fixed-footnotes-container",
+
+  // Class to add to the footnotes in the container.
+  footnoteClass: "fixed-footnotes-note",
 
   // Override this if you want to modify your note before displaying it in the fixed container
   transformNote: function(elem) { return elem; },
@@ -57,11 +60,6 @@ FixedFootnotes.prototype.refresh = function() {
   this._getReferences().forEach(function(reference) {
     self._displayIfVisible(reference);
   });
-  if (this._fixedContainer.childNodes.length == 0) {
-    this._fixedContainer.style.display = "none";
-  } else {
-    this._fixedContainer.style.display = "";
-  }
 };
 
 /*
@@ -72,9 +70,9 @@ FixedFootnotes.prototype.refresh = function() {
  * Create the fixed container that will host the footnotes.
  */
 FixedFootnotes.prototype._createFixedContainer = function() {
-  var fixedContainer = this.options.w.document.createElement("div");
+  var fixedContainer = this.options.w.document.createElement("section");
   fixedContainer.id = this.options.fixedContainerId;
-  fixedContainer.style.cssText = this.options.fixedContainerCss;
+  fixedContainer.className = this.options.fixedContainerClass;
   this.options.w.document.querySelector(this.options.fixedContainerLocation).appendChild(fixedContainer);
   return fixedContainer;
 }
@@ -102,6 +100,7 @@ FixedFootnotes.prototype._displayIfVisible = function(reference) {
  */
 FixedFootnotes.prototype._displayNote = function(note) {
   var newNote = this.options.transformNote(note.cloneNode(true));
+  newNote.className += ` ${this.options.footnoteClass}`;
   this._fixedContainer.appendChild(newNote);
 };
 

@@ -3,38 +3,49 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <title>fixed-footnotes demo</title>
   <link rel="stylesheet" type="text/css" href="demo.css"></link>
-  <link rel="stylesheet" type="text/css" href="theme.css"></link>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/dark.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js"></script>
+  <!-- use in dev mode -->
+  <script type="text/javascript" src="../build/bundle.js"></script>
+  <!--
+  <script type="text/javascript" src="fixed-footnotes-0.0.1.min.js"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="fixed-footnotes-0.0.1.css" id="ffn-theme"></link>
 </head>
 <body>
   <a href="https://github.com/thomaslule/fixed-footnotes"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
   <h1>fixed-footnotes</h1>
+  <ul id="buttons">
+    <li><button id="button-no-theme">Default theme, no config</button></li>
+    <li><button id="button-theme">Custom theme and config</button></li>
+  </ul>
   <div id="code">
-    <ul id="buttons">
-      <li><button id="button-no-theme">No theme, no config</button></li>
-      <li><button id="button-theme">Themed</button></li>
-    </ul>
     <div id="code-no-theme">
       <pre><code class="javascript">fixedFootnotes();</code></pre>
     </div>
     <div id="code-theme">
-      <pre><code class="javascript">fixedFootnotes({
+<pre><code class="javascript">fixedFootnotes({
   fixedContainerLocation: "#column",
-  fixedContainerId: "fixedContainer",
   transformNote: function(note) {
     note.id = "";
     return note;
   }
 });</code></pre>
-      <pre><code class="css">#fixedContainer {
+<pre><code class="css">.fixed-footnotes-container {
+  position: fixed;
+  bottom: 0;
+  background-color: #ecc546;
+  border-top: 1px solid black;
   max-width: 500px;
-  background-color: #E7B91B !important;
-  border-top-color: black !important;
+  width: 100%;
 }
 
-#fixedContainer p {
-  margin-bottom: 0px;
+.fixed-footnotes-container:empty {
+  display: none;
+}
+
+.fixed-footnotes-note {
+  margin: 0;
 }</code></pre>
     </div>
   </div>
@@ -107,8 +118,6 @@
       <p id="fn4"><a href="#r4">[4]</a> A last footnote just at the end of the document.</p>
     </section>
   </div>
-  <script type="text/javascript" src="fixed-footnotes-0.0.1.min.js"></script>
-  <!--<script type="text/javascript" src="../build/bundle.js"></script>-->
   <script type="text/javascript" src="demo.js"></script>
 </body>
 </html>

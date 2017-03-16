@@ -1,10 +1,10 @@
 .fixed-footnotes-container {
   position: fixed;
   bottom: 0;
-  background-color: #ecc546;
-  border-top: 1px solid black;
-  max-width: 500px;
+  background-color: white;
+  border-top: 1px solid grey;
   width: 100%;
+  padding: 5px;
 }
 
 .fixed-footnotes-container:empty {
@@ -12,5 +12,7 @@
 }
 
 .fixed-footnotes-note {
+  color: black;
   margin: 0;
+  padding: 0;
 }
