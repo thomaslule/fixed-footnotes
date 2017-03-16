@@ -101,7 +101,7 @@ FixedFootnotes.prototype._displayIfVisible = function(reference) {
 FixedFootnotes.prototype._displayNote = function(note) {
   var newNote = note.cloneNode(true);
   util.removeAllIds(newNote); // we don't want duplicate ids
-  newNote.className += ` ${this.options.footnoteClass}`;
+  newNote.className += (" " + this.options.footnoteClass);
   newNote = this.options.transformNote(newNote);
   this._fixedContainer.appendChild(newNote);
 };
