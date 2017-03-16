@@ -99,10 +99,25 @@ FixedFootnotes.prototype._displayIfVisible = function(reference) {
  * Add a footnote to the fixed container.
  */
 FixedFootnotes.prototype._displayNote = function(note) {
-  var newNote = this.options.transformNote(note.cloneNode(true));
+  var newNote = note.cloneNode(true);
+  util.removeAllIds(newNote); // we don't want duplicate ids
   newNote.className += ` ${this.options.footnoteClass}`;
+  newNote = this.options.transformNote(newNote);
   this._fixedContainer.appendChild(newNote);
 };
+
+var util = {
+  /*
+   * Remove id of this element and its children.
+   */
+  removeAllIds: function (node) {
+    node.id = "";
+    var children = node.getElementsByTagName('*');
+    for (var i = 0; i < children.length; i++) {
+      children[i].id = "";
+    }
+  }
+}
 
 /*
  * Expose a single function that will instanciate a FixedFootnotes.

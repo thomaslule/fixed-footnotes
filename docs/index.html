@@ -25,13 +25,19 @@
     </div>
     <div id="code-theme">
 <pre><code class="javascript">fixedFootnotes({
+  // align notes with the text
   fixedContainerLocation: "#column",
+
+  // edit them because why not?
   transformNote: function(note) {
-    note.id = "";
+    var noteText = note.getElementsByTagName("span")[0].firstChild;
+    noteText.textContent += " and I modified it";
     return note;
   }
 });</code></pre>
-<pre><code class="css">.fixed-footnotes-container {
+<pre><code class="css">/* a custom css theme */
+
+.fixed-footnotes-container {
   position: fixed;
   bottom: 0;
   background-color: #ecc546;
@@ -112,10 +118,10 @@
     Fusce dignissim pretium vehicula<sup><a href="#fn4" id="r4" class="footnote">[4]</a></sup>. Praesent pulvinar mi ut neque sollicitudin suscipit. Integer iaculis nibh vitae eros euismod pulvinar. Nulla ut rutrum est. Aliquam in finibus diam, sit amet maximus nunc. Nunc id sem a tortor tincidunt commodo. Vivamus venenatis vel erat et suscipit. Curabitur eu molestie tortor. Donec congue lectus nisl, at commodo elit porta eu. Donec in dolor sed mauris vehicula sodales et sit amet risus. Quisque nec ullamcorper purus. Vivamus tempus, lorem quis fermentum cursus, lacus est placerat felis, non commodo sapien nunc eget ante. Donec scelerisque dui ullamcorper, posuere tortor a, tristique mi. Sed nec purus vitae nisi porta feugiat. Fusce mollis sit amet dolor nec auctor. Sed eros quam, dictum quis nulla non, tempor convallis diam.
     </p>
     <section id="notes">
-      <p id="fn1"><a href="#r1">[1]</a> This is the content of the very first footnote of this document.</p>
-      <p id="fn2"><a href="#r2">[2]</a> And this is the second one.</p>
-      <p id="fn3"><a href="#r3">[3]</a> Another footnote somewhere in the middle of the document.</p>
-      <p id="fn4"><a href="#r4">[4]</a> A last footnote just at the end of the document.</p>
+      <p id="fn1"><a href="#r1">[1]</a> <span>This is the content of the very first footnote of this document</span></p>
+      <p id="fn2"><a href="#r2">[2]</a> <span>And this is the second one</span></p>
+      <p id="fn3"><a href="#r3">[3]</a> <span>Another footnote somewhere in the middle of the document</span></p>
+      <p id="fn4"><a href="#r4">[4]</a> <span>A last footnote just at the end of the document</span></p>
     </section>
   </div>
   <script type="text/javascript" src="demo.js"></script>

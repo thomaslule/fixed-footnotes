@@ -20,7 +20,7 @@ document.getElementById("button-theme").onclick = function() {
   ffn = fixedFootnotes({
     fixedContainerLocation: "#column",
     transformNote: function(note) {
-      note.id = "";
+      note.getElementsByTagName("span")[0].firstChild.textContent += " and I modified it";
       return note;
     }
   });
