@@ -1,7 +1,7 @@
 "use strict";
 
 var inView = require("in-view");
-var SR = require("scroll-resize");
+var throttle = require("lodash/throttle");
 
 /*
  * Start modifying the DOM by creating a fixed container and dynamically populate it.
@@ -12,8 +12,10 @@ var FixedFootnotes = function(options = {}, w) {
 
   this._fixedContainer = this._createFixedContainer();
 
-  this._sr = new SR(this.refresh.bind(this));
-  this._sr.start();
+  this._eventListener = throttle(this.refresh.bind(this), 200);
+  this._window.addEventListener("scroll", this._eventListener);
+  this._window.addEventListener("resize", this._eventListener);
+  this.refresh();
 }
 
 /*
@@ -43,7 +45,8 @@ FixedFootnotes.prototype.defaultOptions = {
  * Stop all the things we were doing and put back the DOM at its initial state.
  */
 FixedFootnotes.prototype.stop = function() {
-  this._sr.stop(true);
+  this._window.removeEventListener("scroll", this._eventListener);
+  this._window.removeEventListener("resize", this._eventListener);
   this._fixedContainer.parentNode.removeChild(this._fixedContainer);
 }
 
