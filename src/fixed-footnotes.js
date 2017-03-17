@@ -1,19 +1,19 @@
 "use strict";
 
-var empty = require('empty-element');
 var inView = require('in-view');
 
 /*
  * Start modifying the DOM by creating a fixed container and dynamically populate it.
  */
-var FixedFootnotes = function(options) {
+var FixedFootnotes = function(options = {}, w) {
   this.options = Object.assign({}, this.defaultOptions, options);
+  this._window = w || window;
 
   this._fixedContainer = this._createFixedContainer();
 
   // The view will be refreshed on each scroll
   this._eventListener = this.refresh.bind(this);
-  this.options.w.addEventListener("scroll", this._eventListener);
+  this._window.addEventListener("scroll", this._eventListener);
   this.refresh();
 }
 
@@ -37,10 +37,7 @@ FixedFootnotes.prototype.defaultOptions = {
   footnoteClass: "fixed-footnotes-note",
 
   // Override this if you want to modify your note before displaying it in the fixed container
-  transformNote: function(elem) { return elem; },
-
-  // Window object.
-  w: window
+  transformNote: function(elem) { return elem; }
 };
 
 /*
@@ -48,7 +45,7 @@ FixedFootnotes.prototype.defaultOptions = {
  */
 FixedFootnotes.prototype.stop = function() {
   this._fixedContainer.parentNode.removeChild(this._fixedContainer);
-  this.options.w.removeEventListener("scroll", this._eventListener);
+  this._window.removeEventListener("scroll", this._eventListener);
 }
 
 /*
@@ -56,7 +53,7 @@ FixedFootnotes.prototype.stop = function() {
  */
 FixedFootnotes.prototype.refresh = function() {
   var self = this;
-  empty(this._fixedContainer);
+  util.emptyElement(this._fixedContainer);
   this._getReferences().forEach(function(reference) {
     self._displayIfVisible(reference);
   });
@@ -70,10 +67,10 @@ FixedFootnotes.prototype.refresh = function() {
  * Create the fixed container that will host the footnotes.
  */
 FixedFootnotes.prototype._createFixedContainer = function() {
-  var fixedContainer = this.options.w.document.createElement("section");
+  var fixedContainer = this._window.document.createElement("section");
   fixedContainer.id = this.options.fixedContainerId;
   fixedContainer.className = this.options.fixedContainerClass;
-  this.options.w.document.querySelector(this.options.fixedContainerLocation).appendChild(fixedContainer);
+  this._window.document.querySelector(this.options.fixedContainerLocation).appendChild(fixedContainer);
   return fixedContainer;
 }
 
@@ -81,7 +78,7 @@ FixedFootnotes.prototype._createFixedContainer = function() {
  * Get all the references.
  */
 FixedFootnotes.prototype._getReferences = function() {
-  return this.options.w.document.querySelectorAll(this.options.referencesSelector);
+  return this._window.document.querySelectorAll(this.options.referencesSelector);
 };
 
 /*
@@ -89,7 +86,7 @@ FixedFootnotes.prototype._getReferences = function() {
  * It won't display the footnote in the fixed container if the footnote is already on screen.
  */
 FixedFootnotes.prototype._displayIfVisible = function(reference) {
-  var note = this.options.w.document.querySelector(reference.getAttribute("href"));
+  var note = this._window.document.querySelector(reference.getAttribute("href"));
   if (inView.is(reference) && !inView.is(note)) {
     this._displayNote(note);
   }
@@ -107,6 +104,15 @@ FixedFootnotes.prototype._displayNote = function(note) {
 };
 
 var util = {
+
+  /*
+   * Remove all children from an element
+   */
+  emptyElement: function(element) {
+    var node;
+    while ((node = element.lastChild)) element.removeChild(node);
+  },
+
   /*
    * Remove id of this element and its children.
    */
@@ -122,6 +128,6 @@ var util = {
 /*
  * Expose a single function that will instanciate a FixedFootnotes.
  */
-module.exports = function(options) {
-  return new FixedFootnotes(options);
+module.exports = function(options, w) {
+  return new FixedFootnotes(options, w);
 };

@@ -5,16 +5,22 @@
   "main": "src/fixed-footnotes.js",
   "scripts": {
     "start": "webpack --watch",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "test": "jasmine"
   },
   "author": "Thomas Lulé <thomas@lule.fr>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thomaslule/fixed-footnotes"
+  },
   "devDependencies": {
     "copy-webpack-plugin": "^4.0.1",
+    "jasmine": "^2.5.3",
+    "jsdom": "^9.12.0",
     "webpack": "^2.2.1"
   },
   "dependencies": {
-    "empty-element": "^1.0.0",
     "in-view": "^0.6.1"
   }
 }
