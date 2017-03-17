@@ -1,6 +1,7 @@
 "use strict";
 
-var inView = require('in-view');
+var inView = require("in-view");
+var SR = require("scroll-resize");
 
 /*
  * Start modifying the DOM by creating a fixed container and dynamically populate it.
@@ -11,10 +12,8 @@ var FixedFootnotes = function(options = {}, w) {
 
   this._fixedContainer = this._createFixedContainer();
 
-  // The view will be refreshed on each scroll
-  this._eventListener = this.refresh.bind(this);
-  this._window.addEventListener("scroll", this._eventListener);
-  this.refresh();
+  this._sr = new SR(this.refresh.bind(this));
+  this._sr.start();
 }
 
 /*
@@ -44,8 +43,8 @@ FixedFootnotes.prototype.defaultOptions = {
  * Stop all the things we were doing and put back the DOM at its initial state.
  */
 FixedFootnotes.prototype.stop = function() {
+  this._sr.stop(true);
   this._fixedContainer.parentNode.removeChild(this._fixedContainer);
-  this._window.removeEventListener("scroll", this._eventListener);
 }
 
 /*
