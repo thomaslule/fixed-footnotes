@@ -1,6 +1,6 @@
 "use strict";
 
-var inView = require("in-view");
+var isElementInViewport = require("isElementInViewport");
 var throttle = require("lodash/throttle");
 
 /*
@@ -12,6 +12,7 @@ var FixedFootnotes = function(options = {}, w) {
 
   this._fixedContainer = this._createFixedContainer();
 
+  // throttle of the refresh event to improve performances
   this._eventListener = throttle(this.refresh.bind(this), 200);
   this._window.addEventListener("scroll", this._eventListener);
   this._window.addEventListener("resize", this._eventListener);
@@ -88,11 +89,19 @@ FixedFootnotes.prototype._getReferences = function() {
  * It won't display the footnote in the fixed container if the footnote is already on screen.
  */
 FixedFootnotes.prototype._displayIfVisible = function(reference) {
-  var note = this._window.document.querySelector(reference.getAttribute("href"));
-  if (inView.is(reference) && !inView.is(note)) {
+  var note = this._getNoteFromRef(reference);
+  if (!note) return;
+  if (isElementInViewport(reference) && !isElementInViewport(note)) {
     this._displayNote(note);
   }
 };
+
+/*
+ * Given a reference, find its footnote.
+ */
+FixedFootnotes.prototype._getNoteFromRef = function(reference) {
+  return this._window.document.querySelector(reference.getAttribute("href"));
+}
 
 /*
  * Add a footnote to the fixed container.
