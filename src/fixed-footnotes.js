@@ -24,7 +24,7 @@ var FixedFootnotes = function(options = {}, w) {
  */
 FixedFootnotes.prototype.defaultOptions = {
   // CSS selector used to identify the references in text.
-  referencesSelector: ".footnote",
+  referencesSelector: ".reference",
 
   // CSS selector to the node that will host the fixed container.
   fixedContainerLocation: "body",
