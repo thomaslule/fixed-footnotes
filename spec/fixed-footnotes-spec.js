@@ -3,11 +3,20 @@ var jsdom = require("jsdom");
 
 describe("fixed-footnotes", function() {
 
+  it("should work with no argument", function(done) {
+    jsdom.env("<body></body>", ["http://code.jquery.com/jquery.js"], function(err, w) {
+      global.window = w;
+      var ffn = footnotes();
+      expect(w.$("section").length).toBe(1);
+      done();
+    });
+  });
+
   it("should properly override default options", function(done) {
     jsdom.env("<body></body>", function(err, w) {
       var ffn = footnotes({ referencesSelector: "test" }, w);
       expect(ffn.options.referencesSelector).toBe("test");
-      expect(ffn.defaultOptions.referencesSelector).toBe(".footnote");
+      expect(ffn.defaultOptions.referencesSelector).toBe(".reference");
       done();
     });
   });

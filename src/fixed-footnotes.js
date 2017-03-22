@@ -6,7 +6,7 @@ var throttle = require("lodash/throttle");
 /*
  * Start modifying the DOM by creating a fixed container and dynamically populate it.
  */
-var FixedFootnotes = function(options = {}, w) {
+var FixedFootnotes = function(options, w) {
   this.options = Object.assign({}, this.defaultOptions, options);
   this._window = w || window;
 
