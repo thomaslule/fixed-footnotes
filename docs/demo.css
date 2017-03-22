@@ -26,8 +26,14 @@ h2 {
   font-size: 30px;
   font-weight: 300;
   line-height: 32px;
-  margin: 0 0 72px;
+  margin: 0 5px 72px 5px;
   text-align: center;
+}
+
+@media (max-width: 1500px) {
+  h2 {
+    font-size: 20px;
+  }
 }
 
 p {
@@ -35,7 +41,7 @@ p {
   font-family: 'Helvetica Neue', sans-serif;
   font-size: 14px;
   line-height: 24px;
-  margin: 0 0 24px;
+  margin: 0 5px 24px 5px;
   text-align: justify;
   text-justify: inter-word;
 }
@@ -84,4 +90,10 @@ a, a:visited, a:hover, a:active {
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
+}
+
+@media (max-width: 1500px) {
+  #buttons button {
+    padding: 8px 16px;
+  }
 }
