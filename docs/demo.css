@@ -14,6 +14,12 @@ h1 {
   margin-top: 0;
 }
 
+@media (max-width: 1500px) {
+  h1 {
+    font-size: 60px;
+  }
+}
+
 h2 {
   color: #111;
   font-family: 'Open Sans', sans-serif;
@@ -63,6 +69,7 @@ a, a:visited, a:hover, a:active {
 #buttons li {
   display: inline-block;
   margin: 0 auto;
+  margin-bottom: 10px;
   padding-left: 15px;
   padding-right: 15px;
 }
