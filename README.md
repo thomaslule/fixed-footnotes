@@ -6,7 +6,7 @@ A lightweight javascript library that will show the footnotes of a document at t
 
 ## Install
 
-With npm: `npm install fixed-footnotes --save`. You can then use a build tool (like webpack or browserify) to export the javascript and css into a browser.
+With npm: `npm install fixed-footnotes --save`. You can then use a build tool (like webpack or browserify) to export the javascript into a browser. CSS will be found in `node_modules/fixed-footnotes/build`.
 
 Without npm, add the javascript and css located in the `build` directory to your webpage.
 
