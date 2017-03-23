@@ -18,6 +18,21 @@ fixedFootnotes();
 
 This will start displaying the footnotes with the default options.
 
+The library will look for in-text references that have the class `reference` (this can be customized) and follow their hash link to the footnote itself.
+
+HTML Example:
+
+````HTML
+<!-- Document -->
+<p>Some text<a class="reference" href="#n1">[1]</a></p>
+<!-- Footnotes -->
+<ul>
+  <li id="n1">Note one</li>
+</ul>
+````
+
+The dynamic footnote won't be displayed if the static one is already on screen.
+
 ### Options
 
 Here are the options you can pass and their default values:
