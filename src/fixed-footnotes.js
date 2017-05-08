@@ -1,5 +1,6 @@
 "use strict";
 
+var util = require("./util");
 var isElementInViewport = require("isElementInViewport");
 var throttle = require("lodash/throttle");
 
@@ -113,28 +114,6 @@ FixedFootnotes.prototype._displayNote = function(note) {
   newNote = this.options.transformNote(newNote);
   this._fixedContainer.appendChild(newNote);
 };
-
-var util = {
-
-  /*
-   * Remove all children from an element
-   */
-  emptyElement: function(element) {
-    var node;
-    while ((node = element.lastChild)) element.removeChild(node);
-  },
-
-  /*
-   * Remove id of this element and its children.
-   */
-  removeAllIds: function (node) {
-    node.id = "";
-    var children = node.getElementsByTagName('*');
-    for (var i = 0; i < children.length; i++) {
-      children[i].id = "";
-    }
-  }
-}
 
 /*
  * Expose a single function that will instanciate a FixedFootnotes.
