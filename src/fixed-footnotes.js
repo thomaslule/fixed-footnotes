@@ -11,6 +11,7 @@ var FixedFootnotes = function(options, w) {
   this._window = w || window;
 
   this._fixedContainer = this._createFixedContainer();
+  this._refreshListeners = [];
 
   // throttle of the refresh event to improve performances
   this._eventListener = throttle(this.refresh.bind(this), 200);
@@ -60,6 +61,34 @@ FixedFootnotes.prototype.refresh = function() {
   this._getReferences().forEach(function(reference) {
     self._displayIfVisible(reference);
   });
+  this._dispatchRefresh();
+};
+
+/*
+ * Add a listener to every refresh events
+ */
+FixedFootnotes.prototype.addRefreshListener = function(listener) {
+  if (!listener || typeof listener !== 'function') {
+    console.log('[FixedFootnotes] Attempt to add an illegal listener to refreshes');
+    return;
+  }
+  this._refreshListeners.push(listener);
+};
+
+/*
+ * Remove previously subscribed event handler
+ */
+FixedFootnotes.prototype.removeRefreshListener = function(listener) {
+  if (!listener || typeof listener !== 'function') {
+    console.log('[FixedFootnotes] Attempt to remove an illegal listener to refreshes');
+    return;
+  }
+  const index = this._refreshListeners.indexOf(listener);
+  if (index > -1) {
+    this._refreshListeners.splice(index, 1);
+  } else {
+    console.log('[FixedFootnotes] Attempt to remove listener failed: already removed');
+  }
 };
 
 /*
@@ -112,6 +141,22 @@ FixedFootnotes.prototype._displayNote = function(note) {
   newNote.className += (" " + this.options.footnoteClass);
   newNote = this.options.transformNote(newNote);
   this._fixedContainer.appendChild(newNote);
+};
+
+/*
+ * Use requestAnimationFrame to assure that the refresh event is dispatched
+ * after the DOM is actually generated.
+ */
+FixedFootnotes.prototype._dispatchRefresh = function() {
+  const listeners = this._refreshListeners;
+  const nextFrame = this._window.requestAnimationFrame || function(fn) {
+    setTimeout(fn, 10);
+  };
+  nextFrame(function() {
+    listeners.forEach(function(listener) {
+      listener();
+    });
+  });
 };
 
 /*
