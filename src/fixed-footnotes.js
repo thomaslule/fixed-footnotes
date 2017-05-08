@@ -1,7 +1,6 @@
 "use strict";
 
 var util = require("./util");
-var isElementInViewport = require("isElementInViewport");
 var throttle = require("lodash/throttle");
 
 /*
@@ -92,7 +91,7 @@ FixedFootnotes.prototype._getReferences = function() {
 FixedFootnotes.prototype._displayIfVisible = function(reference) {
   var note = this._getNoteFromRef(reference);
   if (!note) return;
-  if (isElementInViewport(reference) && !isElementInViewport(note)) {
+  if (util.isElementInViewport(reference, this._window) && !util.isElementInViewport(note, this._window)) {
     this._displayNote(note);
   }
 };

@@ -52,3 +52,61 @@ describe("util.removeAllIds", function() {
   });
 
 });
+
+describe("util.isElementInViewport", function() {
+
+  it("should return true for element in viewport", function(done) {
+    jsdom.env("<body></body>", function(err, w) {
+      var div = w.document.createElement("DIV");
+      // mocking a display...
+      w.innerHeight = 50;
+      w.innerWidth = 100;
+      div.getBoundingClientRect = () => ({
+        top: 0,
+        left: 0,
+        bottom: 10,
+        right: 10
+      });
+
+      expect(util.isElementInViewport(div, w)).toBe(true);
+      done();
+    });
+  });
+
+  it("should return false for element not in viewport", function(done) {
+    jsdom.env("<body></body>", function(err, w) {
+      var div = w.document.createElement("DIV");
+      // mocking a display...
+      w.innerHeight = 50;
+      w.innerWidth = 100;
+      div.getBoundingClientRect = () => ({
+        top: 60, // out of view
+        left: 0,
+        bottom: 70,
+        right: 10
+      });
+
+      expect(util.isElementInViewport(div, w)).toBe(false);
+      done();
+    });
+  });
+
+  it("should return true for element partially in viewport", function(done) {
+    jsdom.env("<body></body>", function(err, w) {
+      var div = w.document.createElement("DIV");
+      // mocking a display...
+      w.innerHeight = 50;
+      w.innerWidth = 100;
+      div.getBoundingClientRect = () => ({
+        top: 45,
+        left: 0,
+        bottom: 55,
+        right: 10
+      });
+
+      expect(util.isElementInViewport(div, w)).toBe(true);
+      done();
+    });
+  });
+
+});
