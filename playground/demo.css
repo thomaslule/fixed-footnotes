@@ -1,0 +1,99 @@
+body {
+  margin: 0;
+  background-color: #ecc546;
+}
+
+h1 {
+  color: #111;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 200px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
+  text-align: center;
+  margin-top: 0;
+}
+
+@media (max-width: 1500px) {
+  h1 {
+    font-size: 60px;
+  }
+}
+
+h2 {
+  color: #111;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 32px;
+  margin: 0 5px 72px 5px;
+  text-align: center;
+}
+
+@media (max-width: 1500px) {
+  h2 {
+    font-size: 20px;
+  }
+}
+
+p {
+  color: #685206;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  margin: 0 5px 24px 5px;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+#notes p {
+  margin: 0;
+}
+
+a, a:visited, a:hover, a:active {
+  color: red;
+  text-decoration: none;
+}
+
+#column {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+#code {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 72px;
+}
+
+#buttons {
+  padding: 0;
+  text-align: center;
+}
+
+#buttons li {
+  display: inline-block;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#buttons button {
+    background-color: #555555;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+@media (max-width: 1500px) {
+  #buttons button {
+    padding: 8px 16px;
+  }
+}
