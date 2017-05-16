@@ -2,15 +2,20 @@
   position: fixed;
   bottom: 0;
   background-color: #ecc546;
+  color: #685206;
+  font-size: 14px;
   border-top: 1px solid black;
   max-width: 500px;
   width: 100%;
+  padding: 5px;
 }
 
-.fixed-footnotes-container:empty {
+.fixed-footnotes-container.empty {
   display: none;
 }
 
-.fixed-footnotes-note {
-  margin: 0;
+.fixed-footnotes-container > ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 }

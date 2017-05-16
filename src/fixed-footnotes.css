@@ -5,14 +5,15 @@
   border-top: 1px solid grey;
   width: 100%;
   padding: 5px;
+  color: black;
 }
 
-.fixed-footnotes-container:empty {
+.fixed-footnotes-container.empty {
   display: none;
 }
 
-.fixed-footnotes-note {
-  color: black;
-  margin: 0;
-  padding: 0;
+.fixed-footnotes-container > ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 }

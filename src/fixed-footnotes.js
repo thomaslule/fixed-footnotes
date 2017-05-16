@@ -10,7 +10,9 @@ var FixedFootnotes = function(options, w) {
   this.options = Object.assign({}, this.defaultOptions, options);
   this._window = w || window;
 
-  this._fixedContainer = this._createFixedContainer();
+  var fixedContainer = this._createFixedContainer();
+  this._fixedContainer = fixedContainer;
+  this._fixedContainerList = fixedContainer.firstChild;
   this._refreshListeners = [];
 
   // throttle of the refresh event to improve performances
@@ -57,9 +59,15 @@ FixedFootnotes.prototype.stop = function() {
  */
 FixedFootnotes.prototype.refresh = function() {
   var self = this;
-  util.emptyElement(this._fixedContainer);
+  util.emptyElement(this._fixedContainerList);
+  this._fixedContainer.className = this.options.fixedContainerClass + " empty";
   this._getReferences().forEach(function(reference) {
-    self._displayIfVisible(reference);
+    var note = self._getNoteFromRef(reference);
+    if (!note) return;
+    if (util.isElementInViewport(reference, self._window) && !util.isElementInViewport(note, self._window)) {
+      self._displayNote(note);
+      self._fixedContainer.className = self.options.fixedContainerClass;
+    }
   });
   this._dispatchRefresh();
 };
@@ -99,9 +107,10 @@ FixedFootnotes.prototype.removeRefreshListener = function(listener) {
  * Create the fixed container that will host the footnotes.
  */
 FixedFootnotes.prototype._createFixedContainer = function() {
-  var fixedContainer = this._window.document.createElement("section");
+  var fixedContainer = this._window.document.createElement("div");
   fixedContainer.id = this.options.fixedContainerId;
-  fixedContainer.className = this.options.fixedContainerClass;
+  fixedContainer.className = this.options.fixedContainerClass + " empty";
+  fixedContainer.appendChild(this._window.document.createElement("ul"));
   this._window.document.querySelector(this.options.fixedContainerLocation).appendChild(fixedContainer);
   return fixedContainer;
 }
@@ -118,11 +127,7 @@ FixedFootnotes.prototype._getReferences = function() {
  * It won't display the footnote in the fixed container if the footnote is already on screen.
  */
 FixedFootnotes.prototype._displayIfVisible = function(reference) {
-  var note = this._getNoteFromRef(reference);
-  if (!note) return;
-  if (util.isElementInViewport(reference, this._window) && !util.isElementInViewport(note, this._window)) {
-    this._displayNote(note);
-  }
+
 };
 
 /*
@@ -136,11 +141,12 @@ FixedFootnotes.prototype._getNoteFromRef = function(reference) {
  * Add a footnote to the fixed container.
  */
 FixedFootnotes.prototype._displayNote = function(note) {
-  var newNote = note.cloneNode(true);
-  util.removeAllIds(newNote); // we don't want duplicate ids
-  newNote.className += (" " + this.options.footnoteClass);
-  newNote = this.options.transformNote(newNote);
-  this._fixedContainer.appendChild(newNote);
+  var li = this._window.document.createElement("li");
+  li.className = this.options.footnoteClass;
+  li.innerHTML = note.innerHTML;
+  util.removeAllIds(li); // we don't want duplicate ids
+  li = this.options.transformNote(li);
+  this._fixedContainerList.appendChild(li);
 };
 
 /*

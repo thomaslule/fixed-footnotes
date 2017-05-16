@@ -7,7 +7,7 @@ describe("fixed-footnotes", function() {
     jsdom.env("<body></body>", ["http://code.jquery.com/jquery.js"], function(err, w) {
       global.window = w;
       var ffn = footnotes();
-      expect(w.$("section").length).toBe(1);
+      expect(w.$(".fixed-footnotes-container").length).toBe(1);
       done();
     });
   });
@@ -25,21 +25,20 @@ describe("fixed-footnotes", function() {
     jsdom.env("<body><div></div></body>", ["http://code.jquery.com/jquery.js"],
     function(err, w) {
       var ffn = footnotes({}, w);
-      expect(w.$("body > *:last").prop("tagName")).toBe("SECTION");
+      expect(w.$("body > *:last").hasClass("fixed-footnotes-container")).toBe(true);
       done();
     });
   });
 
   it("should create the container properly with the options provided", function(done) {
-    jsdom.env("<body><div></div></body>", ["http://code.jquery.com/jquery.js"],
+    jsdom.env("<body><div id='super'></div></body>", ["http://code.jquery.com/jquery.js"],
     function(err, w) {
       var ffn = footnotes({
-        fixedContainerLocation: "div",
+        fixedContainerLocation: "#super",
         fixedContainerId: "myId",
         fixedContainerClass: "myClass"
       }, w);
-      var $container = w.$("div > *:last");
-      expect($container.prop("tagName")).toBe("SECTION");
+      var $container = w.$("#super > *:last");
       expect($container.attr("id")).toBe("myId");
       expect($container.hasClass("myClass")).toBe(true);
       done();
@@ -77,7 +76,7 @@ describe("fixed-footnotes", function() {
       global.window = w;
       var ffn = footnotes({}, w);
       ffn._displayNote(w.$("#note")[0])
-      expect(w.$("section p").length).toBe(1);
+      expect(w.$(".fixed-footnotes-note").length).toBe(1);
       done();
     });
   });
@@ -95,9 +94,9 @@ describe("fixed-footnotes", function() {
         }
       }, w);
       ffn._displayNote(w.$("#note")[0])
-      expect(w.$("section p").length).toBe(1);
-      expect(w.$("section p").hasClass("anotherClass")).toBe(true);
-      expect(w.$("section p").text()).toBe("NOTE");
+      expect(w.$(".fixed-footnotes-note").length).toBe(1);
+      expect(w.$(".fixed-footnotes-note").hasClass("anotherClass")).toBe(true);
+      expect(w.$(".fixed-footnotes-note").text()).toBe("NOTE");
       done();
     });
   });
