@@ -19,7 +19,7 @@ var FixedFootnotes = function(options, w) {
   this._eventListener = throttle(this.refresh.bind(this), 200);
   this._window.addEventListener("scroll", this._eventListener);
   this._window.addEventListener("resize", this._eventListener);
-  this.refresh();
+  this._refreshView();
 }
 
 /*
@@ -58,18 +58,7 @@ FixedFootnotes.prototype.stop = function() {
  * Refresh the view.
  */
 FixedFootnotes.prototype.refresh = function() {
-  var self = this;
-  util.emptyElement(this._fixedContainerList);
-  this._fixedContainer.className = this.options.fixedContainerClass + " empty";
-  this._getReferences().forEach(function(reference) {
-    var note = self._getNoteFromRef(reference);
-    if (!note) return;
-    if (util.isElementInViewport(reference, self._window) && !util.isElementInViewport(note, self._window)) {
-      self._displayNote(note);
-      self._fixedContainer.className = self.options.fixedContainerClass;
-    }
-  });
-  this._dispatchRefresh();
+  this._refreshView();
 };
 
 /*
@@ -102,6 +91,24 @@ FixedFootnotes.prototype.removeRefreshListener = function(listener) {
 /*
  * From here: "private" methods that user is not supposed to call directly.
  */
+
+/*
+ * Refresh the view.
+ */
+FixedFootnotes.prototype._refreshView = function() {
+  var self = this;
+  util.emptyElement(this._fixedContainerList);
+  this._fixedContainer.className = this.options.fixedContainerClass + " empty";
+  this._getReferences().forEach(function(reference) {
+    var note = self._getNoteFromRef(reference);
+    if (!note) return;
+    if (util.isElementInViewport(reference, self._window) && !util.isElementInViewport(note, self._window)) {
+      self._displayNote(note);
+      self._fixedContainer.className = self.options.fixedContainerClass;
+    }
+  });
+  this._dispatchRefresh();
+};
 
 /*
  * Create the fixed container that will host the footnotes.
