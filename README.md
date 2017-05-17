@@ -69,6 +69,14 @@ The view is already refreshed when the user scrolls or resizes his window, but y
 
 Don't display the footnotes anymore, don't listen to the scroll and resize events anymore.
 
+#### addRefreshListener(listener)
+
+The function passed will be called each time the view is refreshed.
+
+#### removeRefreshListener(listener)
+
+The function passed won't be called anymore when the view is refreshed.
+
 ### Example
 
 ````javascript
