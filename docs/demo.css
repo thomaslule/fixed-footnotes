@@ -1,11 +1,11 @@
 body {
   margin: 0;
   background-color: #ecc546;
+  font-family: 'Helvetica Neue', sans-serif;
 }
 
 h1 {
   color: #111;
-  font-family: 'Helvetica Neue', sans-serif;
   font-size: 200px;
   font-weight: bold;
   letter-spacing: -1px;
@@ -38,7 +38,6 @@ h2 {
 
 p {
   color: #685206;
-  font-family: 'Helvetica Neue', sans-serif;
   font-size: 14px;
   line-height: 24px;
   margin: 0 5px 24px 5px;
