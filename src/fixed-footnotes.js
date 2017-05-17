@@ -93,24 +93,6 @@ FixedFootnotes.prototype.removeRefreshListener = function(listener) {
  */
 
 /*
- * Refresh the view.
- */
-FixedFootnotes.prototype._refreshView = function() {
-  var self = this;
-  util.emptyElement(this._fixedContainerList);
-  this._fixedContainer.className = this.options.fixedContainerClass + " fixed-footnotes-empty";
-  this._getReferences().forEach(function(reference) {
-    var note = self._getNoteFromRef(reference);
-    if (!note) return;
-    if (util.isElementInViewport(reference, self._window) && !util.isElementInViewport(note, self._window)) {
-      self._displayNote(note);
-      self._fixedContainer.className = self.options.fixedContainerClass;
-    }
-  });
-  this._dispatchRefresh();
-};
-
-/*
  * Create the fixed container that will host the footnotes.
  */
 FixedFootnotes.prototype._createFixedContainer = function() {
@@ -123,6 +105,28 @@ FixedFootnotes.prototype._createFixedContainer = function() {
 }
 
 /*
+ * Refresh the view.
+ */
+FixedFootnotes.prototype._refreshView = function() {
+  var self = this;
+  util.emptyElement(this._fixedContainerList);
+  var containerEmpty = true;
+  this._getReferences().forEach(function(reference) {
+    var note = self._getNoteFromRef(reference);
+    if (self._shouldDisplayNoteFor(reference, note)) {
+      self._displayNote(note);
+      containerEmpty = false;
+    }
+  });
+  if (containerEmpty) {
+    this._fixedContainer.classList.add("fixed-footnotes-empty");
+  } else {
+    this._fixedContainer.classList.remove("fixed-footnotes-empty");
+  }
+  this._dispatchRefresh();
+};
+
+/*
  * Get all the references.
  */
 FixedFootnotes.prototype._getReferences = function() {
@@ -130,11 +134,13 @@ FixedFootnotes.prototype._getReferences = function() {
 };
 
 /*
- * Given a reference, display the footnote in the fixed container if the reference is on screen.
- * It won't display the footnote in the fixed container if the footnote is already on screen.
+ * Return true if we should display the note of the given reference.
+ * Note must exist, reference must be visible, and original note must not be visible.
  */
-FixedFootnotes.prototype._displayIfVisible = function(reference) {
-
+FixedFootnotes.prototype._shouldDisplayNoteFor = function(reference, note) {
+  return note != undefined &&
+    util.isElementInViewport(reference, this._window) &&
+    !util.isElementInViewport(note, this._window);
 };
 
 /*
