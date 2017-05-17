@@ -131,8 +131,10 @@ describe("fixed-footnotes.refresh", function() {
                                                               true, false); // reference visible, note invisible
       var ffn = footnotes({}, w);
       expect(w.$(".fixed-footnotes-note").length).toBe(0);
+      expect(w.$(".fixed-footnotes-container").hasClass("empty")).toBe(true);
       ffn.refresh();
       expect(w.$(".fixed-footnotes-note").length).toBe(1);
+      expect(w.$(".fixed-footnotes-container").hasClass("empty")).toBe(false);
       done();
     });
   });
