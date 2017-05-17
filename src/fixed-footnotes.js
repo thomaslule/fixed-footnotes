@@ -98,7 +98,7 @@ FixedFootnotes.prototype.removeRefreshListener = function(listener) {
 FixedFootnotes.prototype._refreshView = function() {
   var self = this;
   util.emptyElement(this._fixedContainerList);
-  this._fixedContainer.className = this.options.fixedContainerClass + " empty";
+  this._fixedContainer.className = this.options.fixedContainerClass + " fixed-footnotes-empty";
   this._getReferences().forEach(function(reference) {
     var note = self._getNoteFromRef(reference);
     if (!note) return;
@@ -116,7 +116,7 @@ FixedFootnotes.prototype._refreshView = function() {
 FixedFootnotes.prototype._createFixedContainer = function() {
   var fixedContainer = this._window.document.createElement("div");
   fixedContainer.id = this.options.fixedContainerId;
-  fixedContainer.className = this.options.fixedContainerClass + " empty";
+  fixedContainer.className = this.options.fixedContainerClass + " fixed-footnotes-empty";
   fixedContainer.appendChild(this._window.document.createElement("ul"));
   this._window.document.querySelector(this.options.fixedContainerLocation).appendChild(fixedContainer);
   return fixedContainer;
