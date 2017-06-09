@@ -147,7 +147,9 @@ FixedFootnotes.prototype._shouldDisplayNoteFor = function(reference, note) {
  * Given a reference, find its footnote.
  */
 FixedFootnotes.prototype._getNoteFromRef = function(reference) {
-  return this._window.document.querySelector(reference.getAttribute("href"));
+  var href = reference.getAttribute("href");
+  var id = href.substring(href.indexOf("#") + 1);
+  return this._window.document.getElementById(id);
 }
 
 /*

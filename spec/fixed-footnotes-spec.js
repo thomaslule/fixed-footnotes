@@ -95,11 +95,38 @@ describe("fixed-footnotes.constructor", function() {
     });
   });
 
+  it("should display a note as long as id/href are valid", function(done) {
+    createDomEnv("<body>"
+      + "<p class='reference' href='#note1'>reference 1</p>"
+      + "<p class='reference' href='http://example.com/page#note2'>reference 2</p>"
+      + "<p class='reference' href='#note:3'>reference 3</p>"
+      + "<p id='note1'>note 1</p>"
+      + "<p id='note2'>note 2</p>"
+      + "<p id='note:3'>note 3</p>"
+      + "</body>", function(w) {
+      spyOn(utilStub, "isElementInViewport").and.returnValues(true, false, true, false, true, false); // reference visible, note invisible x3
+      footnotes({}, w);
+      expect(w.$(".fixed-footnotes-note").length).toBe(3);
+      done();
+    });
+  });
+
   it("shouldn't display a note if we can't find it", function(done) {
     createDomEnv("<body><p class='reference' href='#note'>reference</p></body>", function(w) {
-      spyOn(utilStub, "isElementInViewport").and.returnValues(true, false); // reference visible, note invisible
+      spyOn(utilStub, "isElementInViewport");
       footnotes({}, w);
       expect(w.$(".fixed-footnotes-note").length).toBe(0);
+      expect(utilStub.isElementInViewport).not.toHaveBeenCalled(); // not found, not called
+      done();
+    });
+  });
+
+  it("shouldn't crash if the href is invalid", function(done) {
+    createDomEnv("<body><p class='reference' href='some invalid things!'>reference</p></body>", function(w) {
+      spyOn(utilStub, "isElementInViewport");
+      footnotes({}, w);
+      expect(w.$(".fixed-footnotes-note").length).toBe(0);
+      expect(utilStub.isElementInViewport).not.toHaveBeenCalled(); // not found, not called
       done();
     });
   });
