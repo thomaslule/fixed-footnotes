@@ -8,7 +8,7 @@ document.getElementById("button-no-theme").onclick = function() {
   document.getElementById("code-theme").style.display = "none";
   document.getElementById("code-no-theme").style.display = "";
   ffn.stop();
-  document.getElementById("ffn-theme").setAttribute("href", "fixed-footnotes-1.1.0.css");
+  document.getElementById("ffn-theme").setAttribute("href", "fixed-footnotes-1.1.1.css");
   ffn = fixedFootnotes();
 }
 
